@@ -444,26 +444,9 @@
 			
 			if (_width == value)
 				return;
-			
-			_hitField.width = value;
+
 			_width = value;
-			
-			_localBRPos.x = value + _localTLPos.x;
-			_globalWidth = parent? parent.localToGlobal(_localBRPos).x - _globalPos.x : value;
-		
-			if (_rttBufferManager)
-				_rttBufferManager.viewWidth = _globalWidth;
-			
-			_aspectRatio = _globalWidth/_globalHeight;
-			_camera.lens.aspectRatio = _aspectRatio;
-			_depthTextureInvalid = true;
-			
-			_renderer.viewWidth = _globalWidth;
-			
-			_scissorRect.width = _globalWidth;
-			
-			_backBufferInvalid = true;
-			_scissorRectDirty = true;
+            updateWidth();
 		}
 		
 		/**
@@ -484,25 +467,8 @@
 			if (_height == value)
 				return;
 			
-			_hitField.height = value;
 			_height = value;
-			
-			_localBRPos.y = value + _localTLPos.y;
-			_globalHeight = parent? parent.localToGlobal(_localBRPos).y - _globalPos.y : value;
-			
-			if (_rttBufferManager)
-				_rttBufferManager.viewHeight = _globalHeight;
-			
-			_aspectRatio = _globalWidth/_globalHeight;
-			_camera.lens.aspectRatio = _aspectRatio;
-			_depthTextureInvalid = true;
-			
-			_renderer.viewHeight = _globalHeight;
-			
-			_scissorRect.height = _globalHeight;
-			
-			_backBufferInvalid = true;
-			_scissorRectDirty = true;
+			updateHeight();
 		}
 		
 		override public function set x(value:Number):void
@@ -654,8 +620,11 @@
 				}
 			}
 			
-			if (_globalPosDirty)
-				updateGlobalPos();
+			if (_globalPosDirty) {
+                updateWidth();
+                updateHeight();
+                updateGlobalPos();
+            }
 			
 			updateTime();
 			
@@ -705,6 +674,50 @@
 			// register that a view has been rendered
 			stage3DProxy.bufferClear = false;
 		}
+
+        protected function updateWidth():void
+        {
+            _hitField.width = _width;
+            _localBRPos.x = _width + _localTLPos.x;
+            _globalWidth = parent? parent.localToGlobal(_localBRPos).x - _globalPos.x : _width;
+
+            if (_rttBufferManager)
+                _rttBufferManager.viewWidth = _globalWidth;
+
+            _aspectRatio = _globalWidth/_globalHeight;
+            _camera.lens.aspectRatio = _aspectRatio;
+            _depthTextureInvalid = true;
+
+            _renderer.viewWidth = _globalWidth;
+
+            _scissorRect.width = _globalWidth;
+
+            _backBufferInvalid = true;
+            _scissorRectDirty = true;
+        }
+
+        protected function updateHeight():void
+        {
+            _hitField.height = _height;
+            _height = _height;
+
+            _localBRPos.y = _height + _localTLPos.y;
+            _globalHeight = parent? parent.localToGlobal(_localBRPos).y - _globalPos.y : _height;
+
+            if (_rttBufferManager)
+                _rttBufferManager.viewHeight = _globalHeight;
+
+            _aspectRatio = _globalWidth/_globalHeight;
+            _camera.lens.aspectRatio = _aspectRatio;
+            _depthTextureInvalid = true;
+
+            _renderer.viewHeight = _globalHeight;
+
+            _scissorRect.height = _globalHeight;
+
+            _backBufferInvalid = true;
+            _scissorRectDirty = true;
+        }
 		
 		protected function updateGlobalPos():void
 		{
