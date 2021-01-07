@@ -30,7 +30,7 @@
 	{
 		private const LIMIT:uint = 3*0xFFFF;
 		private var _activeSubSet:SubSet;
-		private var _subSets:Vector.<SubSet>;
+		protected var _subSets:Vector.<SubSet>;
 		private var _subSetCount:uint;
 		private var _numIndices:uint;
 		private var _material:MaterialBase;
@@ -84,6 +84,8 @@
 			subSet.indices.push(index, index + 1, index + 2, index + 3, index + 2, index + 1);
 			subSet.numVertices = subSet.vertices.length/11;
 			subSet.numIndices = subSet.indices.length;
+            subSet.indexBufferDirty = true;
+            subSet.vertexBufferDirty = true;
 			subSet.lineCount++;
 			
 			var segRef:SegRef = new SegRef();
