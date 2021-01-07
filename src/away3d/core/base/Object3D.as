@@ -80,11 +80,11 @@ package away3d.core.base
 		arcane var _controller:ControllerBase;
 		
 		private var _smallestNumber:Number = 0.0000000000000000000001;
-		private var _transformDirty:Boolean = true;
-		
-		private var _positionDirty:Boolean;
-		private var _rotationDirty:Boolean;
-		private var _scaleDirty:Boolean;
+		protected var _transformDirty:Boolean = true;
+
+        protected var _positionDirty:Boolean;
+        protected var _rotationDirty:Boolean;
+        protected var _scaleDirty:Boolean;
 		
 		// TODO: not used
 		// private var _positionValuesDirty:Boolean;
@@ -94,10 +94,10 @@ package away3d.core.base
 		private var _positionChanged:Object3DEvent;
 		private var _rotationChanged:Object3DEvent;
 		private var _scaleChanged:Object3DEvent;
-		
-		private var _rotationX:Number = 0;
-		private var _rotationY:Number = 0;
-		private var _rotationZ:Number = 0;
+
+		protected var _rotationX:Number = 0;
+        protected var _rotationY:Number = 0;
+        protected var _rotationZ:Number = 0;
 		private var _eulers:Vector3D = new Vector3D();
 		
 		private var _flipY:Matrix3D = new Matrix3D();
