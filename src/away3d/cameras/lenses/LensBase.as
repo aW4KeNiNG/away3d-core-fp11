@@ -22,6 +22,7 @@ package away3d.cameras.lenses
 		protected var _matrix:Matrix3D;
 		protected var _scissorRect:Rectangle = new Rectangle();
 		protected var _viewPort:Rectangle = new Rectangle();
+        public function get viewPort():Rectangle { return _viewPort }
 		protected var _near:Number = 20;
 		protected var _far:Number = 3000;
 		protected var _aspectRatio:Number = 1;
