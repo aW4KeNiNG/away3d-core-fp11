@@ -318,6 +318,11 @@ package away3d.materials.utils
 		{
 			return _paused;
 		}
+
+        public function get ns():NetStream
+        {
+            return _ns;
+        }
 	
 	}
 }

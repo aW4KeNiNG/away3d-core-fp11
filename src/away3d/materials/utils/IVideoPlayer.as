@@ -2,8 +2,9 @@ package away3d.materials.utils
 {
 	import flash.display.Sprite;
 	import flash.media.SoundTransform;
-	
-	public interface IVideoPlayer
+    import flash.net.NetStream;
+
+    public interface IVideoPlayer
 	{
 		
 		/**
@@ -106,6 +107,7 @@ package away3d.materials.utils
 		 * Called if the player is no longer needed
 		 */
 		function dispose():void;
-	
+
+        function get ns():NetStream;
 	}
 }
