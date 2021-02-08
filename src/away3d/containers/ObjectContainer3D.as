@@ -556,25 +556,30 @@ package away3d.containers
 		 */
 		public function addChild(child:ObjectContainer3D):ObjectContainer3D
 		{
-			if (child == null)
-				throw new Error("Parameter child cannot be null.");
-			
-			if (child._parent)
-				child._parent.removeChild(child);
-			
-			if (!child._explicitPartition)
-				child.implicitPartition = _implicitPartition;
-			
-			child.setParent(this);
-			child.scene = _scene;
-			child.notifySceneTransformChange();
-			child.updateMouseChildren();
-			child.updateImplicitVisibility();
-			
-			_children.push(child);
-			
-			return child;
+			return addChildAt(child, numChildren);
 		}
+
+        public function addChildAt(child:ObjectContainer3D, index:int):ObjectContainer3D
+        {
+            if (child == null)
+                throw new Error("Parameter child cannot be null.");
+
+            if (child._parent)
+                child._parent.removeChild(child);
+
+            if (!child._explicitPartition)
+                child.implicitPartition = _implicitPartition;
+
+            child.setParent(this);
+            child.scene = _scene;
+            child.notifySceneTransformChange();
+            child.updateMouseChildren();
+            child.updateImplicitVisibility();
+
+            _children.insertAt(index, child);
+
+            return child;
+        }
 		
 		/**
 		 * Adds an array of 3d objects to the scene as children of the container
